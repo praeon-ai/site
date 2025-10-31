@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"/><title>MWAL-1 Profile — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
+    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
+    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>MWAL-1 — Model Weights Attestation Layer (Profile)</h1>
+    <p class="muted">v0.1-preview · Subject to change</p>
+
+    <div class="panel">
+      <h2>Manifest (profile)</h2>
+      <pre>{
+  "schema": "https://praeon.ai/mwal-1/profile.json",
+  "artifact": {"sha256": "…", "size": 1048576},
+  "provenance": {"sbom": "cyclonedx", "spdx_id": "SPDXRef-…"},
+  "approvals": {"quorum": "2-of-3", "signers": ["alice", "bob", "carol"]},
+  "policy_ref": "bank-prod-llama3.1",
+  "timestamps": {"created":"2025-10-30T23:59:59Z"}
+}</pre>
+    </div>
+
+    <div class="panel">
+      <h2>Sign & verify</h2>
+      <pre># sign
+praeon manifest sign --in model.mwal.json --out model.mwal.sig
+
+# verify
+praeon manifest verify --in model.mwal.json --sig model.mwal.sig</pre>
+    </div>
+  </div>
+</body>
+</html>
