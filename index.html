@@ -28,4 +28,173 @@
     .badge-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
     .badge{border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.02);padding:6px 10px;border-radius:999px;font-size:13px}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .panel{background
+    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .grid{display:grid;gap:18px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid-3,.grid-2{grid-template-columns:1fr}.nav-links{display:none}}
+    section{padding:28px 0}h2{font-size:clamp(22px,3vw,28px);margin:0 0 12px}
+    .card{padding:18px}.muted{color:var(--muted)}
+    .code{background:#0d1117;border-radius:10px;padding:14px;overflow:auto;border:1px solid var(--border);font-family:ui-monospace,Menlo,Consolas,Roboto Mono,monospace;font-size:13.5px;color:#c9d1d9}
+    .kpi{display:flex;gap:10px;align-items:center}.kpi .dot{width:10px;height:10px;border-radius:50%;background:var(--ok)}
+    footer{padding:32px 0 60px;color:var(--muted);border-top:1px solid var(--border);margin-top:28px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>PRAEON</span><span class="pill">MWAL-1</span></div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#mwal">MWAL-1</a><a href="#products">Products</a><a href="#why">Why</a><a href="#design-partners">Design Partners</a><a href="/docs">Docs</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn ghost" href="/docs">Docs</a>
+      <a class="btn primary" href="https://calendly.com/your-calendly/30min">Book 30-min</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Prove it, then run it.</h1>
+      <p>
+        <strong>Runtime attestation for model weights.</strong> Praeon enforces <strong>default-deny at model load</strong>.
+        We verify a <strong>signed manifest</strong> (CycloneDX/SPDX profile), apply <strong>policy gates</strong>, and <strong>atomically load</strong> approved weights.
+        Every admit emits a <strong>signed, exportable receipt</strong> for auditors and SIEM. <em>No inference tax.</em>
+      </p>
+      <div class="badge-row">
+        <span class="badge">vLLM · Ollama · Bento (drop-in)</span>
+        <span class="badge">CRL + transparency log (&lt;60 s target)</span>
+        <span class="badge">Optional TDX / Azure CC quotes</span>
+        <span class="badge">Decision P95 ≤ 200 ms @ 1 GB goal</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="/docs/quickstart">Start in 5 minutes</a>
+        <a class="btn" href="/docs/mwal-1/profile">Read MWAL-1</a>
+        <a class="btn ghost" href="https://calendly.com/your-calendly/30min">Book a design review</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="mwal">
+    <div class="wrap grid grid-3">
+      <div class="panel card">
+        <h2>What is MWAL-1?</h2>
+        <ul>
+          <li>Signed manifest (C2PA/CycloneDX/SPDX profile)</li>
+          <li>Verify <strong>before</strong> load with atomic FD semantics</li>
+          <li>Policy gates (who/what/where) at load-time</li>
+          <li>Quorum-signed manifests · rapid CRL</li>
+          <li>Audit receipts: JWS-signed, exportable, TTL retention</li>
+        </ul>
+        <p class="muted">Targets: 1 GB decision <strong>P95 ≤ 200 ms</strong>; CRL propagation &lt; 60 s.</p>
+      </div>
+
+      <div class="panel card">
+        <h2>Receipt (example)</h2>
+        <div class="code" aria-label="Receipt JSON">
+<pre>{
+  "id": "rcpt_2025-10-31T12:07Z_9f2c",
+  "runtime": "vllm",
+  "weights_sha256": "…",
+  "manifest_sig": "jws…",
+  "policy_id": "bank-prod-llama3.1",
+  "approver_ids": ["alice","sig-2-of-3"],
+  "host_attest": null,
+  "admit": true,
+  "ts": "2025-10-31T12:07:54Z",
+  "crl_version": "1742",
+  "transparency_log": "praeon://log/blk/883412"
+}</pre>
+        </div>
+        <p class="muted">Export: <code>praeon receipt export --to splunk</code> · See <a href="/docs/receipts">/docs/receipts</a></p>
+      </div>
+
+      <div class="panel card">
+        <h2>Quick start</h2>
+        <p class="muted"><strong>Sandbox only.</strong> For production, use signed packages/Helm in <a href="/docs/quickstart">docs</a>.</p>
+        <div class="code" role="region" aria-label="Quick start commands">
+<pre># verify & load with MWAL-1 (sandbox)
+praeon gate verify \
+  --manifest ./model.mwal.json \
+  --policy ./policy.hcl \
+  --runtime vllm \
+  --load ./weights.bin
+</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="wrap">
+      <h2>Products</h2>
+      <div class="grid grid-3">
+        <div class="panel card"><h3>Praeon Gate</h3><p class="muted">Loader-level enforcement. Verifies manifests, applies policy, and performs atomic verify-and-load. Optional hardware quotes.</p></div>
+        <div class="panel card"><h3>Praeon Ledger</h3><p class="muted">Cryptographically signed receipts for every admitted load. Transparency log + CRL for rapid revocation.</p></div>
+        <div class="panel card"><h3>Praeon Suite</h3><p class="muted">Conformance testing, CI/CD hooks, dashboards, and evidence export for audits and regulatory reporting.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap grid grid-2">
+      <div class="panel card">
+        <h2>Why Praeon</h2>
+        <ul>
+          <li><strong>Attestation-first:</strong> nothing runs without proof.</li>
+          <li><strong>Evidence-by-default:</strong> signed receipts for every load.</li>
+          <li><strong>Revocation that bites:</strong> CRL + log with fleet propagation &lt; 60 s.</li>
+          <li><strong>Cross-runtime:</strong> vLLM/Ollama/Bento — no lock-in.</li>
+          <li><strong>Compliance-ready:</strong> maps to EU AI Act Art. 12 &amp; NIST RMF MEASURE.</li>
+        </ul>
+        <p class="muted">See the <a href="/docs/compliance">Compliance Crosswalk</a>.</p>
+      </div>
+      <div class="panel card">
+        <h2>Benchmarks</h2>
+        <p class="muted">Initial measurements (1 GB, decision-only) — per-runtime P50/P95 with/without TEE. Full table in <a href="/docs#benchmarks">Docs</a>.</p>
+        <div class="code"><pre>runtime  p50   p95   tee
+vllm     78ms  162ms off
+ollama   84ms  171ms off
+bento    91ms  188ms off</pre></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="design-partners">
+    <div class="wrap grid grid-2">
+      <div class="panel card">
+        <h2>Design Partner Program</h2>
+        <ul>
+          <li>Priority integration (vLLM, Ollama, Bento)</li>
+          <li>Early access to Gate, Ledger, Suite</li>
+          <li>Co-authored conformance case study</li>
+          <li>Policy &amp; manifest templates</li>
+          <li>Exec brief for risk &amp; compliance</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn primary" href="https://calendly.com/your-calendly/30min">Book 30-min</a>
+          <a class="btn" href="/design-partners">Intake form</a>
+        </div>
+      </div>
+      <div class="panel card">
+        <h2>What we’re looking for</h2>
+        <ul>
+          <li>Banks, healthcare, critical infra, safety-critical AI</li>
+          <li>Need <em>provable</em> provenance &amp; control</li>
+          <li>Pilot ability (4–8 weeks)</li>
+        </ul>
+        <p class="kpi"><span class="dot"></span> <strong>Pilot slots open:</strong>&nbsp;4</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>© <span id="year"></span> Praeon • <span class="muted">Order for Intelligent Systems.</span></div>
+    <div class="muted"><a href="/security" style="margin-right:12px">Security</a><a href="/legal" style="margin-right:12px">Legal</a><a href="/privacy" style="margin-right:12px">Privacy</a><a href="/docs">Docs</a></div>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
