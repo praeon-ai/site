@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon — Security</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Praeon Security — vulnerability disclosure policy, incident response, and contact." />
+  <link rel="canonical" href="https://praeon.ai/security" />
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:960px}
+    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+    header{position:sticky;top:0;backdrop-filter:saturate(160%) blur(6px);background:rgba(11,12,16,.6);border-bottom:1px solid var(--border)}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.06em}
+    .logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b389ff);box-shadow:var(--shadow)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f1422;border:1px solid var(--border);color:var(--muted);font-size:12px;margin-left:8px}
+    main{padding:32px 0}
+    h1{font-size:clamp(26px,4vw,42px);line-height:1.1;margin:8px 0 6px}
+    h2{font-size:clamp(18px,2.4vw,24px);margin:22px 0 8px}
+    p{margin:10px 0;color:var(--text)}
+    .muted{color:var(--muted)}
+    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:14px 0}
+    ul{margin:8px 0 8px 22px}
+    code,.code{background:#0d1117;border:1px solid var(--border);color:#c9d1d9;border-radius:10px;padding:10px;display:block;overflow:auto;font-family:ui-monospace,Menlo,Consolas,Roboto Mono,monospace;font-size:13.5px}
+    footer{padding:28px 0 48px;border-top:1px solid var(--border);color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <span class="logo-mark" aria-hidden="true"></span><span>PRAEON</span>
+      <span class="pill">Security</span>
+    </div>
+    <nav><a href="/">Home</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Security</h1>
+    <p class="muted">Last updated: 31 Oct 2025</p>
+
+    <div class="panel">
+      <h2>Principles</h2>
+      <ul>
+        <li><strong>Attestation first:</strong> nothing runs without proof.</li>
+        <li><strong>Evidence by default:</strong> every admitted load emits an audit receipt.</li>
+        <li><strong>Revocation that matters:</strong> CRL + transparency log with fast propagation.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Contact</h2>
+      <p>Report security issues to <a href="mailto:security@praeon.ai">security@praeon.ai</a>. For sensitive reports, use our PGP key (coming soon) and include steps to reproduce, impact, and any logs.</p>
+      <p class="muted">We acknowledge within 24 hours and provide a remediation plan within 3 business days for critical issues.</p>
+      <div class="code" aria-label="security.txt">
+/.well-known/security.txt
+Contact: mailto:security@praeon.ai
+Policy:  https://praeon.ai/security
+Preferred-Languages: en
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Vulnerability Disclosure Policy (VDP)</h2>
+      <p>We welcome good-faith research. Please:</p>
+      <ul>
+        <li>Avoid privacy violations and data destruction.</li>
+        <li>Don’t disrupt service (no DoS, no spam, no automated volumetric tests).</li>
+        <li>Give us reasonable time to remediate before public disclosure.</li>
+      </ul>
+      <p><strong>Safe Harbor.</strong> We won’t pursue legal action for research carried out in good faith and within this policy’s scope.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Scope</h2>
+      <ul>
+        <li><strong>In scope:</strong> praeon.ai and subdomains we operate; Praeon Gate, Ledger, Suite pre-release builds provided to partners.</li>
+        <li><strong>Out of scope:</strong> third-party services (cloud providers, registrars), social engineering, physical attacks, denial-of-service.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Transport & Headers</h2>
+      <ul>
+        <li>HTTPS only; TLS 1.2+ (1.3 preferred)</li>
+        <li>HSTS (preload planned post-stability)</li>
+        <li>DNSSEC enabled</li>
+        <li>Security headers baseline: <code>Strict-Transport-Security</code>, <code>Content-Security-Policy</code> (tightened over time), <code>X-Content-Type-Options: nosniff</code>, <code>Referrer-Policy: no-referrer-when-downgrade</code></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Hall of Thanks</h2>
+      <p class="muted">We will recognize researchers who help improve Praeon here.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>© <span id="year"></span> Praeon</div>
+    <div class="muted"><a href="/privacy">Privacy</a> · <a href="/legal">Legal</a></div>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
