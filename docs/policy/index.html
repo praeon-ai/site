@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"/><title>Policy — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
+    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
+    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Policy (HCL examples)</h1>
+    <div class="panel">
+      <h2>Admit only approved weights in prod</h2>
+      <pre>policy "bank-prod-llama3.1" {
+  allow runtime == "vllm"
+  allow env == "prod"
+  allow approvers.quorum == "2-of-3"
+  allow sha256 in set("…approved hashes…")
+  deny  true  # default deny
+}</pre>
+    </div>
+  </div>
+</body>
+</html>
