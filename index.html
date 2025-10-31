@@ -1,15 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Praeon – Prove it, then run it.</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <title>Praeon — Prove it, then run it.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Praeon enforces MWAL-1 — the Model Weights Attestation Layer. Verify exact model weights before execution and emit audit-grade receipts after." />
+  <link rel="canonical" href="https://praeon.ai/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Praeon — Prove it, then run it." />
+  <meta property="og:description" content="MWAL-1 attestation at model load. Audit-grade receipts after." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://praeon.ai/" />
+  <meta property="og:image" content="https://praeon.ai/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Praeon — Prove it, then run it." />
+  <meta name="twitter:description" content="MWAL-1 attestation at model load. Audit-grade receipts after." />
+  <meta name="twitter:image" content="https://praeon.ai/og.png" />
+
+  <!-- Favicons (fallback emoji if you don't add real icons yet) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+
+  <style>
+    :root{
+      --bg:#0b0c10; --panel:#101218; --text:#e8ebf0; --muted:#a4adbd; --brand:#7aa2ff; --ok:#54d6a1; --warn:#ffd166; --danger:#ff6b6b;
+      --code:#0d1117; --border:#1a1f2b; --shadow:0 10px 30px rgba(0,0,0,.3);
+      --radius:16px; --radius-sm:10px; --radius-lg:24px; --maxw:1080px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:radial-gradient(1200px 800px at 20% -10%, rgba(122,162,255,.15), transparent 60%), var(--bg);
+      color:var(--text); line-height:1.5;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(160%) blur(6px); background:rgba(11,12,16,.6); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .logo{display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.06em}
+    .logo-mark{width:28px;height:28px;border-radius:8px; background:linear-gradient(135deg,var(--brand),#b389ff); box-shadow:var(--shadow)}
+    .nav a{color:var(--text); opacity:.9}
+    .nav-links{display:flex; gap:18px}
+    .nav-cta .btn{margin-left:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 16px; border-radius:12px; border:1px solid var(--border); background:linear-gradient(180deg,#151822,#0f121a);
+      color:var(--text); font-weight:600; transition:.15s transform ease, .2s background ease; box-shadow:var(--shadow)
+    }
+    .btn:hover{transform:translateY(-1px); text-decoration:none}
+    .btn.primary{background:linear-gradient(180deg, #89a8ff, #6c8fff); color:#0b0c10; border-color:transparent}
+    .btn.ghost{background:transparent}
+    .hero{padding:56px 0 24px}
+    .hero h1{font-size:clamp(28px,5vw,56px); line-height:1.05; margin:8px 0 14px}
+    .hero p{font-size:clamp(16px,2.2vw,20px); color:var(--muted); max-width:820px}
+    .badge-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+    .badge{border:1px solid var(--border); color:var(--muted); background:rgba(255,255,255,.02); padding:6px 10px; border-radius:999px; font-size:13px}
+    .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px}
+    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .grid{display:grid; gap:18px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){ .grid-3,.grid-2{grid-template-columns:1fr} .nav-links{display:none}}
+    section{padding:28px 0}
+    h2{font-size:clamp(22px,3vw,28px); margin:0 0 12px}
+    .card{padding:18px}
+    .muted{color:var(--muted)}
+    .kpi{display:flex; gap:14px; align-items:center}
+    .kpi .dot{width:10px;height:10px;border-radius:50%; background:var(--ok)}
+    .code{background:var(--code); border-radius:var(--radius-sm); padding:14px; overflow:auto; border:1px solid var(--border); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", Consolas, "Liberation Mono", monospace; font-size:13.5px; color:#c9d1d9}
+    .diagram{padding:16px}
+    footer{padding:32px 0 60px; color:var(--muted); border-top:1px solid var(--border); margin-top:28px}
+    .list{margin:0; padding-left:18px}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:#0f1422; border:1px solid var(--border); color:var(--muted); font-size:12px}
+  </style>
 </head>
-<body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;background:#0c0c0c;color:#f5f5f5;">
-  <div>
-    <h1>Praeon</h1>
-    <p>Order for Intelligent Systems</p>
-    <p><em>Prove it, then run it.</em></p>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span>PRAEON</span>
+      <span class="pill" style="margin-left:8px">MWAL-1</span>
+    </div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#mwal">MWAL-1</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why Praeon</a>
+      <a href="#design-partners">Design Partners</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn ghost" href="#docs">Docs</a>
+      <a class="btn primary" href="#design-partners">Become a Design Partner</a>
+    </div>
   </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Enforce trust at model load.</h1>
+      <p>
+        Praeon implements <strong>MWAL-1</strong> — the Model Weights Attestation Layer.
+        Verify the exact weights and policy before execution; emit <strong>audit-grade receipts</strong> after.
+        Default-deny unless the manifest is signed, verified, and in policy. <em>Prove it, then run it.</em>
+      </p>
+      <div class="badge-row">
+        <span class="badge">Signed manifests (CycloneDX/SPDX profile)</span>
+        <span class="badge">Atomic verify-and-load</span>
+        <span class="badge">CRL + transparency log</span>
+        <span class="badge">TEE-bind optional (Intel TDX/Azure CC)</span>
+        <span class="badge">Cross-runtime: vLLM · Ollama · Bento</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:designpartners@praeon.ai?subject=Praeon%20Design%20Partner%20Request&body=Company%3A%0AUse%20case%3A%0ARuntime(s)%3A%0ARequired%20timeline%3A%0AContact%3A%0A">Become a Design Partner</a>
+        <a class="btn" href="#mwal">Read the MWAL-1 profile</a>
+        <a class="btn ghost" href="#contact">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="mwal">
+    <div class="wrap grid grid-3">
+      <div class="panel card">
+        <h2>What is MWAL-1?</h2>
+        <ul class="list">
+          <li>Signed manifest (C2PA/CycloneDX/SPDX profile)</li>
+          <li>Verify <strong>before</strong> load with atomic FD semantics</li>
+          <li>Policy gates (who/what/where) at load-time</li>
+          <li>Quorum-signed manifests · rapid CRL</li>
+          <li>Audit receipts: pseudonymous, TTL retention</li>
+        </ul>
+        <p class="muted">Targets: 1&nbsp;GB model <strong>P95 ≤ 200&nbsp;ms</strong> decision, CRL propagation &lt; 60&nbsp;s.</p>
+      </div>
+
+      <div class="panel card">
+        <h2>How it works</h2>
+        <div class="diagram code" aria-label="Praeon flow diagram">
+<pre>
+dev / ops
+   │   push signed manifest
+   ▼
+Praeon Gate ── verify ▶ policy ▶ admit/deny
+   │
+   ├─ if admitted ▶ atomic load of weights
+   │
+   └─ emit receipt ▶ Praeon Ledger ▶ auditors / SIEM
+</pre>
+        </div>
+        <p class="muted">Admits only attested artifacts. Everything else is denied by default.</p>
+      </div>
+
+      <div class="panel card" id="docs">
+        <h2>Quick start</h2>
+        <div class="code" role="region" aria-label="Quick start commands">
+<pre>
+# 1) Install Gate (example CLI)
+curl -L https://get.praeon.ai/gate.sh | bash
+
+# 2) Verify & load with MWAL-1
+praeon gate verify \
+  --manifest ./model.mwal.json \
+  --policy ./policy.hcl \
+  --runtime vllm \
+  --load ./weights.bin
+
+# 3) Receipt (JSON)
+cat ./receipts/2025-10-31T12-07Z.json
+</pre>
+        </div>
+        <p class="muted">Sample commands shown. We’ll tailor integration to your runtime (vLLM/Ollama/Bento).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="wrap">
+      <h2>Products</h2>
+      <div class="grid grid-3">
+        <div class="panel card">
+          <h3>Praeon Gate</h3>
+          <p class="muted">Loader-level enforcement. Verifies manifests, applies policy, and performs atomic verify-and-load. Optional TEE binding.</p>
+        </div>
+        <div class="panel card">
+          <h3>Praeon Ledger</h3>
+          <p class="muted">Cryptographically signed receipts for every admitted load. Transparency log + CRL for rapid revocation.</p>
+        </div>
+        <div class="panel card">
+          <h3>Praeon Suite</h3>
+          <p class="muted">Conformance testing, CI/CD hooks, dashboards, and evidence export for audits and regulatory reporting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap grid grid-2">
+      <div class="panel card">
+        <h2>Why Praeon</h2>
+        <ul class="list">
+          <li><strong>Attestation first:</strong> nothing runs without proof.</li>
+          <li><strong>Evidence by default:</strong> audit receipts for every load.</li>
+          <li><strong>Cross-runtime:</strong> works with your stack — no lock-in.</li>
+          <li><strong>Revocation that matters:</strong> CRL + transparency log, fast propagation.</li>
+          <li><strong>Compliance-ready:</strong> designed for regulated deployments.</li>
+        </ul>
+      </div>
+      <div class="panel card">
+        <h2>Alignment</h2>
+        <ul class="list">
+          <li>EU AI Act (evidence &amp; traceability posture)</li>
+          <li>NIST AI RMF (governance &amp; measurement)</li>
+          <li>Supply-chain SBOM (CycloneDX/SPDX profile)</li>
+          <li>Security logs → SIEM / GRC pipelines</li>
+        </ul>
+        <p class="muted">We’ll map your internal controls to Praeon receipts and conformance artifacts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="design-partners">
+    <div class="wrap grid grid-2">
+      <div class="panel card">
+        <h2>Design Partner Program</h2>
+        <ul class="list">
+          <li>Priority integration support (vLLM, Ollama, Bento)</li>
+          <li>Early access to Gate, Ledger, and Suite</li>
+          <li>Co-authored conformance case study</li>
+          <li>Custom policy &amp; manifest templates</li>
+          <li>Executive brief for your risk &amp; compliance team</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn primary" href="mailto:designpartners@praeon.ai?subject=Praeon%20Design%20Partner%20Request&body=Company%3A%0AUse%20case%3A%0ARuntime(s)%3A%0ARequired%20timeline%3A%0AContact%3A%0A">Request Invite</a>
+          <a class="btn" href="#contact">Talk to us</a>
+        </div>
+      </div>
+      <div class="panel card">
+        <h2>What we’re looking for</h2>
+        <ul class="list">
+          <li>Banks, healthcare, critical infra, or safety-critical AI</li>
+          <li>Clear need for <em>provable</em> model provenance &amp; control</li>
+          <li>Ability to integrate in a pilot (4–8&nbsp;weeks)</li>
+        </ul>
+        <p class="kpi"><span class="dot"></span> <strong>Pilot slots open:</strong>&nbsp;4</p>
+        <p class="muted">We limit slots to ensure hands-on support and fast outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap panel card">
+      <h2>Contact</h2>
+      <p class="muted">We’ll respond within one business day.</p>
+      <div class="grid grid-3">
+        <div>
+          <strong>Design partners</strong><br>
+          <a href="mailto:designpartners@praeon.ai">designpartners@praeon.ai</a>
+        </div>
+        <div>
+          <strong>Security</strong><br>
+          <a href="mailto:security@praeon.ai">security@praeon.ai</a>
+        </div>
+        <div>
+          <strong>General</strong><br>
+          <a href="mailto:hello@praeon.ai">hello@praeon.ai</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>© <span id="year"></span> Praeon. <span class="muted">Order for Intelligent Systems.</span></div>
+      <div class="muted">
+        <a href="/security" style="margin-right:12px">Security</a>
+        <a href="/legal" style="margin-right:12px">Legal</a>
+        <a href="/privacy">Privacy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Minimal JS: current year, smooth scroll
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+</script>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Praeon",
+  "url":"https://praeon.ai",
+  "logo":"https://praeon.ai/og.png",
+  "sameAs":[]
+}
+</script>
 </body>
 </html>
