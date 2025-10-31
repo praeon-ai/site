@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>PRAEON — Not found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3)}
+    *{box-sizing:border-box}html,body{height:100%}
+    body{
+      margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(1200px 800px at 20% -10%, rgba(122,162,255,.12), transparent 60%), var(--bg);
+      display:flex;align-items:center;justify-content:center;padding:24px
+    }
+    .card{
+      width:min(720px,100%);background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);
+      border-radius:16px;box-shadow:var(--shadow);padding:28px
+    }
+    h1{margin:0 0 6px;font-size:clamp(28px,6vw,48px);line-height:1.05}
+    p{margin:8px 0;color:var(--muted)}
+    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    a.btn{
+      display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);
+      background:linear-gradient(180deg,#151822,#0f121a);color:var(--text);text-decoration:none;font-weight:600
+    }
+    a.btn.primary{background:linear-gradient(180deg,#89a8ff,#6c8fff);color:#0b0c10;border-color:transparent}
+    .logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b389ff)}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="t">
+    <div class="logo"><span class="mark" aria-hidden="true"></span><strong>PRAEON</strong></div>
+    <h1 id="t">Page not found</h1>
+    <p>The path you requested doesn’t exist or has moved.</p>
+    <div class="row">
+      <a class="btn primary" href="/">Go to Home</a>
+      <a class="btn" href="/security">Security</a>
+      <a class="btn" href="/privacy">Privacy</a>
+      <a class="btn" href="/legal">Legal</a>
+      <a class="btn" href="mailto:security@praeon.ai?subject=404%20link%20issue">Report an issue</a>
+    </div>
+  </main>
+</body>
+</html>
