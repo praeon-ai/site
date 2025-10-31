@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Bento / BentoCloud Integration — Praeon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
+    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
+    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
+    .panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
+    .muted{color:var(--muted)}pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
+    code{background:#0d1117;border:1px solid var(--border);border-radius:6px;padding:0 6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Bento / BentoCloud Integration</h1>
+    <p class="muted">Init-container verification for Kubernetes; CI step for Bento builds. Loader-native plug-in behind a feature flag.</p>
+
+    <div class="panel">
+      <h2>Mode A — Kubernetes (initContainer gate)</h2>
+      <p>Verify at pod start. If policy denies or CRL is stale, the app container never starts.</p>
+      <pre>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bento-svc
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: bento-svc } }
+  template:
+    metadata: { labels: { app: bento-svc } }
+    spec:
+      initContainers:
+      - name: praegate
+        image: ghcr.io/praeon/gate:preview
+        args:
+          - gate
+          - verify
+          - --manifest=/man/model.mwal.json
+          - --policy=/pol/prod.hcl
+          - --runtime=bento
+          - --load=/w/llama3.1-q4k.gguf
+          - --out-store=/verified
+        volumeMounts:
+          - { name: manifests, mountPath: /man, readOnly: true }
+          - { name: policies,  mountPath: /pol, readOnly: true }
+          - { name: weights,   mountPath: /w,   readOnly: true }
+          - { name: verified,  mountPath: /verified }
+      containers:
+      - name: app
+        image: your-bento-image:tag
+        env:
+          - name: PRAEON_MODELS
+            value: /models
+        volumeMounts:
+          - { name: verified, mountPath: /models, readOnly: true }
+      volumes:
+        - { name: manifests, configMap: { name: praeon-manifests } }
+        - { name: policies,  configMap: { name: praeon-policies  } }
+        - { name: weights,   persistentVolumeClaim: { claimName: weights-pvc } }
+        - { name: verified,  emptyDir: {} }</pre>
+      <p class="muted">App reads only from the verified mount. No verified weights → no start.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Mode B — CI step for Bento build</h2>
+      <p>Add a verification step before baking the Bento. If it fails, the build fails.</p>
+      <pre># .github/workflows/bento.yml (excerpt)
+- name: Verify model with Praeon
+  run: |
+    praeon gate verify \
+      --manifest ./manifests/model.mwal.json \
+      --policy   ./policies/prod.hcl \
+      --runtime  bento \
+      --load     ./weights/llama3.1-q4_k_m.gguf \
+      --out-store ./verified
+- name: Build Bento
+  run: |
+    bentoml build
+    # ensure Bento reads from ./verified at runtime</pre>
+    </div>
+
+    <div class="panel">
+      <h2>Mode C — Local preview</h2>
+      <pre># Verify + stage to ./verified
+praeon gate verify \
+  --manifest ./model.mwal.json \
+  --policy   ./policy.hcl \
+  --runtime  bento \
+  --load     ./weights/llama3.1-q4_k_m.gguf \
+  --out-store ./verified
+
+# Run service pointing to verified store
+PRAEON_MODELS=./verified bentoml serve service:svc</pre>
+    </div>
+
+    <div class="panel">
+      <h2>Receipts, CRL, and Fail-closed</h2>
+      <ul>
+        <li>Every admit emits a signed receipt (JWS + timestamp). Export to Splunk/ELK/Datadog.</li>
+        <li>Gate enforces current <code>crl_version</code>; on fetch failure, fail-closed (optional maintenance mode window).</li>
+        <li>Optional hardware attest (Intel TDX/Azure CC) per policy; disabled by default.</li>
+      </ul>
+      <pre># Export last receipt
+praeon receipt export --to elk --file ./receipts/last.json</pre>
+    </div>
+
+    <div class="panel">
+      <h2>Operational tips</h2>
+      <ul>
+        <li>Pin manifest/profile versions in ConfigMaps for reproducibility.</li>
+        <li>Scope policies per env (dev/stage/prod) and approver quorum (e.g., 2-of-3).</li>
+        <li>Set resource requests for the initContainer to avoid scheduling delays.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
