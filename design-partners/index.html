@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon — Design Partners</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:820px}
+    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:var(--brand)}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
+    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,#151822,#0f121a);color:#e8ebf0;text-decoration:none;font-weight:600}
+    .btn.primary{background:linear-gradient(180deg,#89a8ff,#6c8fff);color:#0b0c10;border-color:transparent}
+    label{display:block;margin:10px 0 6px;color:#cfd6e6}input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0d1117;color:#e8ebf0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Design Partner Program</h1>
+    <p class="muted">Pilot (4–8 weeks). Priority integration, early access, co-authored conformance case study.</p>
+
+    <div class="panel" style="margin:16px 0">
+      <h2>Book a 30-minute discovery call</h2>
+      <p><a class="btn primary" href="https://calendly.com/your-calendly/30min">Open Calendly</a></p>
+    </div>
+
+    <div class="panel">
+      <h2>Intake (email)</h2>
+      <form action="mailto:designpartners@praeon.ai" method="post" enctype="text/plain">
+        <label>Company</label>
+        <input name="Company" required />
+        <label>Sector</label>
+        <select name="Sector">
+          <option>Banking/Financial Services</option><option>Healthcare</option><option>Critical Infrastructure</option><option>Other</option>
+        </select>
+        <label>Runtime(s)</label>
+        <input name="Runtimes" placeholder="vLLM, Ollama, Bento…" />
+        <label>Compliance driver</label>
+        <input name="Driver" placeholder="EU AI Act, internal policy, customer mandate…" />
+        <label>Pilot timeline</label>
+        <input name="Timeline" placeholder="e.g., 6 weeks from contract" />
+        <label>Contact</label>
+        <input name="Contact" placeholder="name + email" required />
+        <label>Notes</label>
+        <textarea name="Notes" rows="4"></textarea>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn primary" type="submit">Send</button>
+          <a class="btn" href="mailto:designpartners@praeon.ai">Email instead</a>
+        </div>
+      </form>
+      <p class="muted" style="margin-top:8px">Prefer a form backend? Swap this later for Tally/Typeform/Workers.</p>
+    </div>
+  </div>
+</body>
+</html>
