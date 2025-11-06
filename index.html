@@ -2,199 +2,220 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Praeon — Prove it, then run it.</title>
+  <title>Praeon — Compliance-Grade Action Audit Infrastructure for AI Agents</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Praeon enforces MWAL-1 — the Model Weights Attestation Layer. Verify signed manifests before load, apply policy gates, and emit audit-grade receipts after." />
-  <link rel="canonical" href="https://praeon.ai/"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--ok:#54d6a1;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:1080px}
-    *{box-sizing:border-box}html,body{height:100%}
-    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%, rgba(122,162,255,.15), transparent 60%), var(--bg);color:var(--text);line-height:1.5}
-    a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    header{position:sticky;top:0;z-index:20;backdrop-filter:saturate(160%) blur(6px);background:rgba(11,12,16,.6);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .logo{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.06em}
-    .logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b389ff);box-shadow:var(--shadow)}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f1422;border:1px solid var(--border);color:var(--muted);font-size:12px;margin-left:8px}
-    .nav-links{display:flex;gap:18px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,#151822,#0f121a);color:var(--text);font-weight:600;box-shadow:var(--shadow)}
-    .btn:hover{text-decoration:none;transform:translateY(-1px);transition:.15s}
-    .btn.primary{background:linear-gradient(180deg,#89a8ff,#6c8fff);color:#0b0c10;border-color:transparent}
-    .btn.ghost{background:transparent}
-    .hero{padding:56px 0 24px}
-    .hero h1{font-size:clamp(28px,5vw,56px);line-height:1.05;margin:8px 0 14px}
-    .hero p{font-size:clamp(16px,2.2vw,20px);color:var(--muted);max-width:820px}
-    .badge-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-    .badge{border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.02);padding:6px 10px;border-radius:999px;font-size:13px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .grid{display:grid;gap:18px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
-    @media (max-width:900px){.grid-3,.grid-2{grid-template-columns:1fr}.nav-links{display:none}}
-    section{padding:28px 0}h2{font-size:clamp(22px,3vw,28px);margin:0 0 12px}
-    .card{padding:18px}.muted{color:var(--muted)}
-    .code{background:#0d1117;border-radius:10px;padding:14px;overflow:auto;border:1px solid var(--border);font-family:ui-monospace,Menlo,Consolas,Roboto Mono,monospace;font-size:13.5px;color:#c9d1d9}
-    .kpi{display:flex;gap:10px;align-items:center}.kpi .dot{width:10px;height:10px;border-radius:50%;background:var(--ok)}
-    footer{padding:32px 0 60px;color:var(--muted);border-top:1px solid var(--border);margin-top:28px}
-  </style>
+  <meta name="description" content="Praeon turns AI write-access on safely. Typed plans, kernel-enforced policies, and audit-ready traces that pass Big-4 review." />
+  <link rel="canonical" href="https://praeon.ai/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="Praeon — Compliance-Grade Action Audit Infrastructure for AI Agents" />
+  <meta property="og:description" content="Praeon turns AI write-access on safely. Typed plans, kernel-enforced policies, and audit-ready traces that pass Big-4 review." />
+  <meta property="og:image" content="/og/praeon-og.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://praeon.ai/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Praeon — Compliance-Grade Action Audit Infrastructure for AI Agents" />
+  <meta name="twitter:description" content="Praeon turns AI write-access on safely. Typed plans, kernel-enforced policies, and audit-ready traces that pass Big-4 review." />
+  <meta name="twitter:image" content="/og/praeon-og.svg" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Praeon",
+    "url":"https://praeon.ai",
+    "logo":"https://praeon.ai/logo.png",
+    "sameAs":[]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Praeon Kernel",
+    "applicationCategory":"SecurityApplication",
+    "operatingSystem":"Cross-platform",
+    "offers":{"@type":"Offer","price":"200000","priceCurrency":"USD"}
+  }
+  </script>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span>PRAEON</span><span class="pill">MWAL-1</span></div>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#mwal">MWAL-1</a><a href="#products">Products</a><a href="#why">Why</a><a href="#design-partners">Design Partners</a><a href="/docs">Docs</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn ghost" href="/docs">Docs</a>
-      <a class="btn primary" href="https://calendly.com/your-calendly/30min">Book 30-min</a>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="wrap">
-      <h1>Prove it, then run it.</h1>
-      <p>
-        <strong>Runtime attestation for model weights.</strong> Praeon enforces <strong>default-deny at model load</strong>.
-        We verify a <strong>signed manifest</strong> (CycloneDX/SPDX profile), apply <strong>policy gates</strong>, and <strong>atomically load</strong> approved weights.
-        Every admit emits a <strong>signed, exportable receipt</strong> for auditors and SIEM. <em>No inference tax.</em>
-      </p>
-      <div class="badge-row">
-        <span class="badge">vLLM · Ollama · Bento (drop-in)</span>
-        <span class="badge">CRL + transparency log (&lt;60 s target)</span>
-        <span class="badge">Optional TDX / Azure CC quotes</span>
-        <span class="badge">Decision P95 ≤ 200 ms @ 1 GB goal</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn primary" href="/docs/quickstart">Start in 5 minutes</a>
-        <a class="btn" href="/docs/mwal-1/profile">Read MWAL-1</a>
-        <a class="btn ghost" href="https://calendly.com/your-calendly/30min">Book a design review</a>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section id="mwal">
-    <div class="wrap grid grid-3">
-      <div class="panel card">
-        <h2>What is MWAL-1?</h2>
-        <ul>
-          <li>Signed manifest (C2PA/CycloneDX/SPDX profile)</li>
-          <li>Verify <strong>before</strong> load with atomic FD semantics</li>
-          <li>Policy gates (who/what/where) at load-time</li>
-          <li>Quorum-signed manifests · rapid CRL</li>
-          <li>Audit receipts: JWS-signed, exportable, TTL retention</li>
-        </ul>
-        <p class="muted">Targets: 1 GB decision <strong>P95 ≤ 200 ms</strong>; CRL propagation &lt; 60 s.</p>
-      </div>
-
-      <div class="panel card">
-        <h2>Receipt (example)</h2>
-        <div class="code" aria-label="Receipt JSON">
-<pre>{
-  "id": "rcpt_2025-10-31T12:07Z_9f2c",
-  "runtime": "vllm",
-  "weights_sha256": "…",
-  "manifest_sig": "jws…",
-  "policy_id": "bank-prod-llama3.1",
-  "approver_ids": ["alice","sig-2-of-3"],
-  "host_attest": null,
-  "admit": true,
-  "ts": "2025-10-31T12:07:54Z",
-  "crl_version": "1742",
-  "transparency_log": "praeon://log/blk/883412"
-}</pre>
-        </div>
-        <p class="muted">Export: <code>praeon receipt export --to splunk</code> · See <a href="/docs/receipts">/docs/receipts</a></p>
-      </div>
-
-      <div class="panel card">
-        <h2>Quick start</h2>
-        <p class="muted"><strong>Sandbox only.</strong> For production, use signed packages/Helm in <a href="/docs/quickstart">docs</a>.</p>
-        <div class="code" role="region" aria-label="Quick start commands">
-<pre># verify & load with MWAL-1 (sandbox)
-praeon gate verify \
-  --manifest ./model.mwal.json \
-  --policy ./policy.hcl \
-  --runtime vllm \
-  --load ./weights.bin
-</pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="products">
-    <div class="wrap">
-      <h2>Products</h2>
-      <div class="grid grid-3">
-        <div class="panel card"><h3>Praeon Gate</h3><p class="muted">Loader-level enforcement. Verifies manifests, applies policy, and performs atomic verify-and-load. Optional hardware quotes.</p></div>
-        <div class="panel card"><h3>Praeon Ledger</h3><p class="muted">Cryptographically signed receipts for every admitted load. Transparency log + CRL for rapid revocation.</p></div>
-        <div class="panel card"><h3>Praeon Suite</h3><p class="muted">Conformance testing, CI/CD hooks, dashboards, and evidence export for audits and regulatory reporting.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="why">
-    <div class="wrap grid grid-2">
-      <div class="panel card">
-        <h2>Why Praeon</h2>
-        <ul>
-          <li><strong>Attestation-first:</strong> nothing runs without proof.</li>
-          <li><strong>Evidence-by-default:</strong> signed receipts for every load.</li>
-          <li><strong>Revocation that bites:</strong> CRL + log with fleet propagation &lt; 60 s.</li>
-          <li><strong>Cross-runtime:</strong> vLLM/Ollama/Bento — no lock-in.</li>
-          <li><strong>Compliance-ready:</strong> maps to EU AI Act Art. 12 &amp; NIST RMF MEASURE.</li>
-        </ul>
-        <p class="muted">See the <a href="/docs/compliance">Compliance Crosswalk</a>.</p>
-      </div>
-      <div class="panel card">
-        <h2>Benchmarks</h2>
-        <p class="muted">Initial measurements (1 GB, decision-only) — per-runtime P50/P95 with/without TEE. Full table in <a href="/docs#benchmarks">Docs</a>.</p>
-        <div class="code"><pre>runtime  p50   p95   tee
-vllm     78ms  162ms off
-ollama   84ms  171ms off
-bento    91ms  188ms off</pre></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="design-partners">
-    <div class="wrap grid grid-2">
-      <div class="panel card">
-        <h2>Design Partner Program</h2>
-        <ul>
-          <li>Priority integration (vLLM, Ollama, Bento)</li>
-          <li>Early access to Gate, Ledger, Suite</li>
-          <li>Co-authored conformance case study</li>
-          <li>Policy &amp; manifest templates</li>
-          <li>Exec brief for risk &amp; compliance</li>
-        </ul>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Turn AI write-access on — safely.</h1>
+        <p>Praeon gives security, compliance, and engineering teams a shared control layer for AI agents. Typed plans, least-privilege execution, and audit-ready traces that pass Big-4 review.</p>
         <div class="cta-row">
-          <a class="btn primary" href="https://calendly.com/your-calendly/30min">Book 30-min</a>
-          <a class="btn" href="/design-partners">Intake form</a>
+          <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+          <a class="btn" href="/whitepaper/">Read the White Paper</a>
+        </div>
+        <div class="trust-strip" role="text">Built for BFSI · Healthcare · Public Sector · Enterprise SaaS</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="value-props">
+      <div class="wrap">
+        <h2 id="value-props">Why Praeon</h2>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Typed Plans, Not Loose Prompts</h3>
+            <p>Agents submit PlanLang files that spell out capabilities, guardrails, and spend before they touch production systems.</p>
+          </article>
+          <article class="card">
+            <h3>Kernel-Enforced Safety</h3>
+            <p>The Praeon Kernel enforces least privilege, runs pre-flight checks, and supports approvals plus semantic replay.</p>
+          </article>
+          <article class="card">
+            <h3>Audit-Ready Evidence</h3>
+            <p>Generate redacted evidence packs that satisfy risk teams, regulators, and external auditors.</p>
+          </article>
         </div>
       </div>
-      <div class="panel card">
-        <h2>What we’re looking for</h2>
-        <ul>
-          <li>Banks, healthcare, critical infra, safety-critical AI</li>
-          <li>Need <em>provable</em> provenance &amp; control</li>
-          <li>Pilot ability (4–8 weeks)</li>
-        </ul>
-        <p class="kpi"><span class="dot"></span> <strong>Pilot slots open:</strong>&nbsp;4</p>
+    </section>
+
+    <section aria-labelledby="why-now">
+      <div class="wrap">
+        <div class="band">
+          <h2 id="why-now">Why now</h2>
+          <p>Large enterprises and regulated startups need agents to close loops on refunds, case updates, and outreach. Security and compliance teams block write access when controls are unclear. Praeon supplies the governance substrate so you can turn writes on without months of review.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="how-it-works">
+      <div class="wrap">
+        <h2 id="how-it-works">How it Works</h2>
+        <div class="grid grid-4">
+          <article class="card">
+            <h3>Plan</h3>
+            <p>Agents propose typed PlanLang action plans that list actors, systems, constraints, and spend.</p>
+          </article>
+          <article class="card">
+            <h3>Pre-Flight</h3>
+            <p>The kernel evaluates policy, runs static checks, and performs a dry-run before any write.</p>
+          </article>
+          <article class="card">
+            <h3>Approve &amp; Execute</h3>
+            <p>Human or automated reviewers approve scopes, then adapters execute with least-privilege credentials.</p>
+          </article>
+          <article class="card">
+            <h3>Trace &amp; Replay</h3>
+            <p>Praeon captures replayable traces so you can investigate, red-team, or satisfy regulators on demand.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="icp">
+      <div class="wrap">
+        <h2 id="icp">Where Praeon lands first</h2>
+        <div class="icp-grid">
+          <article class="icp-tile">
+            <h3>BFSI / Fintech</h3>
+            <p>Refund approvals, credit adjustments, and risk operations.</p>
+          </article>
+          <article class="icp-tile">
+            <h3>Healthcare / Claims</h3>
+            <p>Care team updates, claims intake, and benefit communications.</p>
+          </article>
+          <article class="icp-tile">
+            <h3>Enterprise SaaS</h3>
+            <p>Outbound messaging, CRM changes, and revenue operations automations.</p>
+          </article>
+          <article class="icp-tile">
+            <h3>Public Sector</h3>
+            <p>Citizen service automations with sovereign deployment options.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="compliance-security">
+      <div class="wrap">
+        <div class="card">
+          <h2 id="compliance-security">Compliance &amp; Security</h2>
+          <ul class="list-checks">
+            <li>Secrets never land in traces—keys stay in HSM or KMS and are fetched only at execution.</li>
+            <li>Every adapter ships as a vendor-attested build with Sigstore/OCI digests and reproducible packaging.</li>
+            <li>Two-tier tracing keeps operational data encrypted while audit views stay redacted and shareable.</li>
+            <li>Built-in retention controls satisfy DPDP/GDPR and stream key events into your SIEM.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cta-band" class="cta-band">
+      <div class="wrap">
+        <h2 id="cta-band">Ready to turn writes on?</h2>
+        <p>Run a focused compliance pilot that demonstrates typed plans, kernel guardrails, and audit-ready evidence in two weeks.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/contact/">Start a Compliance Pilot</a>
+          <a class="btn" href="/docs/planlang-v0-1/">See PlanLang v0.1</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
       </div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-    <div>© <span id="year"></span> Praeon • <span class="muted">Order for Intelligent Systems.</span></div>
-    <div class="muted"><a href="/security" style="margin-right:12px">Security</a><a href="/legal" style="margin-right:12px">Legal</a><a href="/privacy" style="margin-right:12px">Privacy</a><a href="/docs">Docs</a></div>
-  </div>
-</footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

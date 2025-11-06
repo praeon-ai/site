@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Page not found — Praeon</title>
+  <title>PlanLang v0.1 — Praeon Typed Action Plans</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="PlanLang v0.1 defines typed plans for Praeon: actors, capabilities, constraints, approvals, effects." />
   <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
@@ -33,9 +34,44 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <h1>Page not found</h1>
-        <p>The page you’re looking for moved with the Praeon rebrand. Try the main navigation or head back home.</p>
-        <a class="btn btn-primary" href="/">Return home</a>
+        <h1>PlanLang v0.1</h1>
+        <p>Human-auditable JSON schema for typed action plans: capabilities, constraints, approvals, and semantic effects.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/docs/planlang-v0.1.json" download>Download Schema</a>
+          <a class="btn" href="/docs/examples/plan-example.json">View Example Plan</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Schema Highlights</h2>
+          <ul>
+            <li>Actors with typed identities (agent, human, service).</li>
+            <li>Capabilities mapped to adapters with least-privilege scopes.</li>
+            <li>Constraints for budget, risk, and temporal controls.</li>
+            <li>Steps enumerating preconditions and semantic effects.</li>
+            <li>Approvals referencing policy URIs and required roles.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="/docs/">Docs overview</a></li>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit drill checklist</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <article class="card">
+          <h2>Schema Preview</h2>
+          <pre id="planlang-schema">Loading schema…</pre>
+        </article>
       </div>
     </section>
   </main>
@@ -74,6 +110,17 @@
       </div>
     </div>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    fetch('/docs/planlang-v0.1.json')
+      .then((response) => response.json())
+      .then((schema) => {
+        const pre = document.getElementById('planlang-schema');
+        pre.textContent = JSON.stringify(schema, null, 2);
+      })
+      .catch(() => {
+        document.getElementById('planlang-schema').textContent = 'Unable to load schema.';
+      });
+  </script>
 </body>
 </html>

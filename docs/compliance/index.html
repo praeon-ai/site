@@ -1,28 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><title>Compliance Crosswalk — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-    table{width:100%;border-collapse:collapse}td,th{border:1px solid var(--border);padding:10px;text-align:left}
-    .muted{color:#a4adbd}
-  </style>
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon Compliance Crosswalk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Map Praeon typed plans, kernel controls, and audit traces to regulatory frameworks." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Compliance Crosswalk</h1>
-    <p class="muted">Illustrative mapping; your counsel governs.</p>
-    <div class="panel">
-      <table>
-        <thead><tr><th>Control</th><th>What Praeon Provides</th><th>Artifacts</th></tr></thead>
-        <tbody>
-          <tr><td>EU AI Act — Art. 12 (logging)</td><td>Receipt per admitted load; export to SIEM</td><td>JWS receipts; log anchors; CRL versions</td></tr>
-          <tr><td>NIST AI RMF — MEASURE</td><td>Execution evidence; provenance & policy linkage</td><td>Manifest + policy IDs; approver quorum</td></tr>
-          <tr><td>Supply Chain (SBOM)</td><td>Manifest profile binds to CycloneDX/SPDX</td><td>Profile JSON; signature</td></tr>
-        </tbody>
-      </table>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Compliance Crosswalk</h1>
+        <p>Praeon maps typed plans, kernel controls, approvals, and trace retention to leading regulatory frameworks.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="card">
+          <table style="width:100%; border-collapse:collapse; color:var(--text);">
+            <thead>
+              <tr style="text-align:left; border-bottom:1px solid rgba(122,162,255,0.2);">
+                <th style="padding:12px 8px;">Framework</th>
+                <th style="padding:12px 8px;">Praeon Control</th>
+                <th style="padding:12px 8px;">Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(122,162,255,0.1);">
+                <td style="padding:12px 8px;">EU AI Act — Art. 12 (logging)</td>
+                <td style="padding:12px 8px;">Operational + audit traces per executed plan</td>
+                <td style="padding:12px 8px;">Trace exports; replay reports; SIEM hooks</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(122,162,255,0.1);">
+                <td style="padding:12px 8px;">SOX 404 / Change Mgmt</td>
+                <td style="padding:12px 8px;">Typed PlanLang approvals &amp; least-privilege scopes</td>
+                <td style="padding:12px 8px;">Approval logs; policy digests; adapter attestations</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(122,162,255,0.1);">
+                <td style="padding:12px 8px;">DPDP / GDPR</td>
+                <td style="padding:12px 8px;">Retention policies, redacted audit traces, KMS enforcement</td>
+                <td style="padding:12px 8px;">Trace retention configs; KMS/HSM usage logs</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 8px;">NIST AI RMF — Govern/Map/Measure/Manage</td>
+                <td style="padding:12px 8px;">PlanLang policy evaluation, approvals, replayable traces</td>
+                <td style="padding:12px 8px;">PlanLang artifacts; policy repo; replay reports</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

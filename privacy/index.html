@@ -2,105 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Praeon — Privacy Policy</title>
+  <title>Praeon Privacy Policy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Praeon Privacy Policy — what we collect, how we use it, and your rights." />
+  <meta name="description" content="Praeon privacy practices for compliance-grade action audit infrastructure." />
   <link rel="canonical" href="https://praeon.ai/privacy" />
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:960px}
-    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
-    header{position:sticky;top:0;backdrop-filter:saturate(160%) blur(6px);background:rgba(11,12,16,.6);border-bottom:1px solid var(--border)}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .logo{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.06em}
-    .logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b389ff);box-shadow:var(--shadow)}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f1422;border:1px solid var(--border);color:var(--muted);font-size:12px;margin-left:8px}
-    main{padding:32px 0}
-    h1{font-size:clamp(26px,4vw,42px);line-height:1.1;margin:8px 0 6px}
-    h2{font-size:clamp(18px,2.4vw,24px);margin:22px 0 8px}
-    p{margin:10px 0;color:var(--text)}
-    ul{margin:8px 0 8px 22px}
-    .muted{color:var(--muted)}
-    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:14px 0}
-    footer{padding:28px 0 48px;border-top:1px solid var(--border);color:var(--muted)}
-  </style>
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="logo">
-      <span class="logo-mark" aria-hidden="true"></span><span>PRAEON</span>
-      <span class="pill">Privacy</span>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-    <nav><a href="/">Home</a></nav>
-  </div>
-</header>
+  </header>
 
-<main>
-  <div class="wrap">
-    <h1>Privacy Policy</h1>
-    <p class="muted">Last updated: 31 Oct 2025</p>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Privacy Policy</h1>
+        <p>We collect the minimum data necessary to operate Praeon and deliver compliance pilots.</p>
+      </div>
+    </section>
 
-    <div class="panel">
-      <h2>Summary</h2>
-      <p>We collect the minimum necessary information to operate this website and respond to inquiries. We don’t sell personal data. We don’t run third-party ads. We use privacy-respecting analytics.</p>
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>What we collect</h2>
+          <ul>
+            <li>Contact form submissions (name, email, org, use case, message).</li>
+            <li>Operational logs required to secure the Praeon Kernel.</li>
+            <li>Optional privacy-first analytics without cross-site tracking.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>How we use data</h2>
+          <p>Data powers compliance pilots, customer support, and platform security. We don’t sell personal data or run ads.</p>
+        </article>
+        <article class="card">
+          <h2>Retention</h2>
+          <p>Operational traces stay encrypted at rest; audit traces are redacted for export. Contact submissions retain for 12 months unless requested sooner.</p>
+        </article>
+        <article class="card">
+          <h2>Your rights</h2>
+          <p>Email <a href="mailto:privacy@praeon.ai">privacy@praeon.ai</a> to access, correct, or delete personal data. We honor GDPR/DPDP requirements.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-
-    <div class="panel">
-      <h2>What we collect</h2>
-      <ul>
-        <li><strong>Browsing metadata</strong> (via our host/CDN): IP address, user-agent, pages visited, and timestamps for security and performance. Stored briefly.</li>
-        <li><strong>Emails you send us</strong> (e.g., <a href="mailto:hello@praeon.ai">hello@praeon.ai</a>, <a href="mailto:designpartners@praeon.ai">designpartners@praeon.ai</a>): your email address and message content.</li>
-        <li><strong>Optional web analytics</strong> (privacy-first; no cross-site tracking, no third-party ads).</li>
-      </ul>
-    </div>
-
-    <div class="panel">
-      <h2>How we use data</h2>
-      <ul>
-        <li>Operate, secure, and improve the site.</li>
-        <li>Respond to messages and support requests.</li>
-        <li>Detect abuse and prevent fraud.</li>
-      </ul>
-    </div>
-
-    <div class="panel">
-      <h2>Retention</h2>
-      <ul>
-        <li>Server/CDN logs: typically ≤ 90 days unless needed for security investigations.</li>
-        <li>Emails: kept as long as necessary to support our relationship or as required by law.</li>
-      </ul>
-    </div>
-
-    <div class="panel">
-      <h2>Your choices & rights</h2>
-      <p>Depending on your jurisdiction (e.g., EU/EEA GDPR, India DPDP), you may have rights to access, correct, delete, or receive a copy of your data. To exercise these rights, contact <a href="mailto:privacy@praeon.ai">privacy@praeon.ai</a>.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Sharing</h2>
-      <p>We share data with service providers who help us run this site (e.g., hosting/CDN, email). They act under contract and only as instructed by us. We may disclose information where required by law.</p>
-    </div>
-
-    <div class="panel">
-      <h2>International transfers</h2>
-      <p>Our infrastructure and providers may process data in multiple countries. We use reasonable safeguards for cross-border transfers.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Contact</h2>
-      <p>Questions about privacy? Email <a href="mailto:privacy@praeon.ai">privacy@praeon.ai</a>.</p>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-    <div>© <span id="year"></span> Praeon</div>
-    <div class="muted"><a href="/security">Security</a> · <a href="/legal">Legal</a></div>
-  </div>
-</footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

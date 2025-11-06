@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Page not found — Praeon</title>
+  <title>Praeon FAQ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Frequently asked questions about Praeon compliance-grade action audit infrastructure." />
   <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
@@ -33,9 +34,34 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <h1>Page not found</h1>
-        <p>The page you’re looking for moved with the Praeon rebrand. Try the main navigation or head back home.</p>
-        <a class="btn btn-primary" href="/">Return home</a>
+        <h1>Praeon FAQ</h1>
+        <p>Quick answers about PlanLang, the Praeon Kernel, and audit-grade traces.</p>
+        <a class="btn" href="/docs/faq.md">Download Markdown</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Is Praeon an agent framework?</h2>
+          <p>No. Orchestrators export to PlanLang; the Kernel enforces policies and produces audit-ready traces.</p>
+        </article>
+        <article class="card">
+          <h2>Is replay bit-identical?</h2>
+          <p>We target semantic equivalence with adapter-specific success criteria; bit-identical where feasible.</p>
+        </article>
+        <article class="card">
+          <h2>Can we store traces on-prem?</h2>
+          <p>Yes. Operational traces stay encrypted on-prem; audit traces are exportable and redacted.</p>
+        </article>
+        <article class="card">
+          <h2>Do you handle secrets?</h2>
+          <p>Tokens never appear in traces; they are fetched from HSM/KMS at execution. Replay requires fresh authorization.</p>
+        </article>
+        <article class="card">
+          <h2>Which adapters ship first?</h2>
+          <p>Email, Slack/Teams, Salesforce, Jira/ServiceNow, Git, and Payments.</p>
+        </article>
       </div>
     </section>
   </main>

@@ -2,55 +2,140 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Praeon — Design Partners</title>
+  <title>Praeon Design Partners</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:820px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
-    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,#151822,#0f121a);color:#e8ebf0;text-decoration:none;font-weight:600}
-    .btn.primary{background:linear-gradient(180deg,#89a8ff,#6c8fff);color:#0b0c10;border-color:transparent}
-    label{display:block;margin:10px 0 6px;color:#cfd6e6}input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0d1117;color:#e8ebf0}
-  </style>
+  <meta name="description" content="Join Praeon compliance pilots to govern typed plans and audit-grade traces." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Design Partner Program</h1>
-    <p class="muted">Pilot (4–8 weeks). Priority integration, early access, co-authored conformance case study.</p>
-
-    <div class="panel" style="margin:16px 0">
-      <h2>Book a 30-minute discovery call</h2>
-      <p><a class="btn primary" href="https://calendly.com/your-calendly/30min">Open Calendly</a></p>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
+  </header>
 
-    <div class="panel">
-      <h2>Intake (email)</h2>
-      <form action="mailto:designpartners@praeon.ai" method="post" enctype="text/plain">
-        <label>Company</label>
-        <input name="Company" required />
-        <label>Sector</label>
-        <select name="Sector">
-          <option>Banking/Financial Services</option><option>Healthcare</option><option>Critical Infrastructure</option><option>Other</option>
-        </select>
-        <label>Runtime(s)</label>
-        <input name="Runtimes" placeholder="vLLM, Ollama, Bento…" />
-        <label>Compliance driver</label>
-        <input name="Driver" placeholder="EU AI Act, internal policy, customer mandate…" />
-        <label>Pilot timeline</label>
-        <input name="Timeline" placeholder="e.g., 6 weeks from contract" />
-        <label>Contact</label>
-        <input name="Contact" placeholder="name + email" required />
-        <label>Notes</label>
-        <textarea name="Notes" rows="4"></textarea>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn primary" type="submit">Send</button>
-          <a class="btn" href="mailto:designpartners@praeon.ai">Email instead</a>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Design Partner Program</h1>
+        <p>Co-develop typed plan governance, least-privilege execution, and audit-grade traces alongside Praeon.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>What you get</h2>
+          <ul>
+            <li>Priority integration for PlanLang + Kernel adapters.</li>
+            <li>Co-authored audit drill and compliance case study.</li>
+            <li>Dedicated security, policy, and engineering support.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Eligibility</h2>
+          <ul>
+            <li>BFSI, healthcare, public sector, or enterprise SaaS.</li>
+            <li>Commit to 50-plan audit drill within 8 weeks.</li>
+            <li>Executive sponsorship across risk and product.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Book a Discovery Call</h2>
+          <p><a class="btn btn-primary" href="https://calendly.com/your-calendly/30min">Open Calendly</a></p>
+        </article>
+        <article class="card">
+          <h2>Intake</h2>
+          <form id="design-partner-form">
+            <label>Company
+              <input name="company" required />
+            </label>
+            <label>Sector
+              <input name="sector" required />
+            </label>
+            <label>Primary use case
+              <input name="useCase" required />
+            </label>
+            <label>Contact
+              <input name="contact" required />
+            </label>
+            <button class="btn btn-primary" type="submit">Email details</button>
+            <p id="design-partner-status" class="muted" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
         </div>
-      </form>
-      <p class="muted" style="margin-top:8px">Prefer a form backend? Swap this later for Tally/Typeform/Workers.</p>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-  </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const intakeForm = document.getElementById('design-partner-form');
+    const status = document.getElementById('design-partner-status');
+    intakeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(intakeForm);
+      const body = Array.from(data.entries())
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n');
+      window.location.href = `mailto:designpartners@praeon.ai?subject=Design%20Partner%20Intake&body=${encodeURIComponent(body)}`;
+      status.textContent = 'Launching email client…';
+    });
+  </script>
 </body>
 </html>
