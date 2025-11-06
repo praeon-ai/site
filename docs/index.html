@@ -1,31 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/><title>Praeon — Docs</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-    ul{margin:8px 0 8px 22px}
-  </style>
+  <meta charset="utf-8" />
+  <title>Praeon Docs — Compliance-Grade Action Audit Infrastructure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Documentation for Praeon: PlanLang, Kernel, policies, traces, adapters, and enterprise integrations." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Praeon Docs</h1>
-    <p class="muted">Start here.</p>
-    <div class="panel">
-      <ul>
-        <li><a href="/docs/quickstart">Quickstart</a></li>
-        <li><a href="/docs/mwal-1/profile">MWAL-1 Profile</a></li>
-        <li><a href="/docs/policy">Policy (HCL) Examples</a></li>
-        <li><a href="/docs/receipts">Receipts (schema & export)</a></li>
-        <li><a href="/docs/crl-ledger">CRL & Transparency Log</a></li>
-        <li>Integrations: <a href="/docs/integrations/vllm">vLLM</a> · <a href="/docs/integrations/ollama">Ollama</a> · <a href="/docs/integrations/bento">Bento</a></li>
-        <li><a href="/docs/compliance">Compliance Crosswalk</a></li>
-      </ul>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a aria-current="page" href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-    <h2 id="benchmarks">Benchmarks</h2>
-    <p class="muted">Decision-only overhead at load time (no inference tax). Tables per runtime coming with public builds.</p>
-  </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Praeon Documentation</h1>
+        <p>Compliance-grade action audit infrastructure for AI agents: typed plans, kernel policies, replayable traces.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap sidebar-layout">
+        <aside class="sidebar" aria-label="Documentation navigation">
+          <h2>Docs</h2>
+          <nav>
+            <ul>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#what-is-praeon">What is Praeon?</a></li>
+              <li><a href="#quickstart">Quickstart</a></li>
+              <li><a href="#planlang">PlanLang v0.1</a></li>
+              <li><a href="#schema">Schema (JSON)</a></li>
+              <li><a href="#types-effects">Types &amp; Effects</a></li>
+              <li><a href="#policies">Policies</a></li>
+              <li><a href="#kernel">Kernel</a></li>
+              <li><a href="#execution-model">Execution Model</a></li>
+              <li><a href="#approvals">Approvals &amp; Dry-Run</a></li>
+              <li><a href="#traces">Traces</a></li>
+              <li><a href="#security">Security</a></li>
+              <li><a href="#adapters">Adapters</a></li>
+              <li><a href="#enterprise-guides">Enterprise Guides</a></li>
+              <li><a href="#api-reference">API Reference</a></li>
+              <li><a href="#cli">CLI</a></li>
+              <li><a href="/docs/faq/">FAQ</a></li>
+              <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            </ul>
+          </nav>
+        </aside>
+
+        <article class="docs-content">
+          <section id="overview">
+            <h2>Overview</h2>
+            <p>Praeon turns AI write-access on safely by governing typed plans, enforcing policy via the Praeon Kernel, and producing audit-ready traces.</p>
+          </section>
+
+          <section id="what-is-praeon">
+            <h2>What is Praeon?</h2>
+            <p>Praeon is compliance-grade action audit infrastructure for AI agents. It combines typed action plans (PlanLang), a reference kernel that enforces least-privilege execution, and replayable traces accepted by internal risk and external auditors.</p>
+          </section>
+
+          <section id="quickstart">
+            <h2>Quickstart</h2>
+            <p>Choose the path that matches your operating model.</p>
+            <h3>SMB Pilot</h3>
+            <ol>
+              <li>Connect orchestrator to emit PlanLang.</li>
+              <li>Run Praeon Kernel in managed sandbox.</li>
+              <li>Validate adapters with provided policies.</li>
+            </ol>
+            <h3>Enterprise Pilot</h3>
+            <ol>
+              <li>Integrate identity (Okta/Entra) for approvals.</li>
+              <li>Route traces to SIEM (Splunk/Datadog).</li>
+              <li>Execute 50-plan audit drill. See <a href="/docs/audit-drill-checklist/">audit checklist</a>.</li>
+            </ol>
+          </section>
+
+          <section id="planlang">
+            <h2>PlanLang v0.1</h2>
+            <p>PlanLang is a human-auditable JSON schema capturing actors, capabilities, constraints, policies, and approvals. Download the canonical schema: <a href="/docs/planlang-v0.1.json">planlang-v0.1.json</a>.</p>
+            <p>Example plans live in <a href="/docs/examples/">docs/examples</a>.</p>
+          </section>
+
+          <section id="schema">
+            <h2>Schema (JSON)</h2>
+            <p>See <a href="/docs/planlang-v0.1.json">planlang-v0.1.json</a> for the full specification. Core types cover <code>actor</code>, <code>capabilities</code>, <code>constraints</code>, <code>steps</code>, <code>approvals</code>, <code>policyRef</code>, and <code>effects</code>.</p>
+          </section>
+
+          <section id="types-effects">
+            <h2>Types &amp; Effects</h2>
+            <p>Each action step enumerates effects for least-privilege evaluation. Use typed scopes (e.g. <code>domain:example.com</code>) and budgets for deterministic guardrails.</p>
+          </section>
+
+          <section id="policies">
+            <h2>Policies</h2>
+            <p>Policies can be authored in CEL or Rego. Example: approve outbound email when budget &lt;= $200 and domain is allowlisted. Store policies under <code>policy://</code> URIs referenced in PlanLang documents.</p>
+          </section>
+
+          <section id="kernel">
+            <h2>Kernel</h2>
+            <p>The Praeon Kernel performs static analysis, dry-run execution, adapter mediation, and semantic replay. Deploy managed, on-prem, or sovereign.</p>
+          </section>
+
+          <section id="execution-model">
+            <h2>Execution Model (Determinism = Semantic Equivalence)</h2>
+            <p>Praeon targets semantic equivalence between live execution and replay. Adapter success criteria are codified per integration; optional bit-identical mode is available when the adapter supports it.</p>
+          </section>
+
+          <section id="approvals">
+            <h2>Approvals &amp; Dry-Run</h2>
+            <p>Combine automated policy approvals with human checkpoints. Dry-run mode exercises adapters with synthetic credentials to validate side effects before production approval.</p>
+          </section>
+
+          <section id="traces">
+            <h2>Traces (Operational vs Audit)</h2>
+            <p>Operational traces remain encrypted with customer KMS/HSM. Audit traces are redacted, signed, and exportable to auditors. Replay any incident with semantic success criteria.</p>
+          </section>
+
+          <section id="security">
+            <h2>Security</h2>
+            <p>No tokens appear in traces. Secrets are fetched at execution time via KMS/HSM adapters. Runtime sandboxes enforce egress policies; vendor adapters ship as reproducible builds with Sigstore/OCI digests.</p>
+          </section>
+
+          <section id="adapters">
+            <h2>Adapters</h2>
+            <p>Praeon ships adapters for Email, Slack/Teams, Salesforce, Jira/ServiceNow, GitHub/GitLab, and Payments (Stripe/Razorpay). Each adapter exposes typed capabilities with least-privilege scopes.</p>
+          </section>
+
+          <section id="enterprise-guides">
+            <h2>Enterprise Guides</h2>
+            <ul>
+              <li>Okta/Entra SSO</li>
+              <li>Splunk/Datadog Integration</li>
+              <li>DPDP/GDPR Retention</li>
+              <li>Big-4 Audit Drill Checklist</li>
+            </ul>
+          </section>
+
+          <section id="api-reference">
+            <h2>API Reference</h2>
+            <p>Praeon JavaScript SDK: <code>@praeon/sdk</code>. REST and CLI endpoints expose plan submission, approval workflows, and trace export.</p>
+          </section>
+
+          <section id="cli">
+            <h2>@praeon/sdk &amp; CLI</h2>
+            <p>Install via npm (<code>npm install @praeon/sdk</code>) and pip (<code>pip install praeon</code>). CLI supports <code>plan validate</code>, <code>kernel preflight</code>, and <code>trace export</code>.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

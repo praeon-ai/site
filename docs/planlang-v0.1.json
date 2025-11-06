@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://praeon.ai/docs/planlang-v0.1.json",
+  "title": "PlanLang v0.1",
+  "description": "Typed action plan schema for Praeon compliance-grade action audit infrastructure.",
+  "type": "object",
+  "required": ["actor", "capabilities", "constraints", "steps"],
+  "properties": {
+    "actor": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string", "enum": ["agent", "human", "service"] },
+        "id": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tool", "name"],
+        "properties": {
+          "tool": { "type": "string" },
+          "name": { "type": "string" },
+          "scopes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "budget": {
+          "type": "object",
+          "properties": {
+            "currency": { "type": "string" },
+            "max": { "type": "number", "minimum": 0 }
+          },
+          "required": ["currency", "max"]
+        },
+        "riskLevel": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    },
+    "policyRef": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^policy://" }
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stepId", "type"],
+        "properties": {
+          "stepId": { "type": "string" },
+          "type": { "type": "string", "enum": ["human", "automated"] },
+          "role": { "type": "string" },
+          "conditions": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "action"],
+        "properties": {
+          "id": { "type": "string" },
+          "action": {
+            "type": "object",
+            "required": ["tool", "capability", "params"],
+            "properties": {
+              "tool": { "type": "string" },
+              "capability": { "type": "string" },
+              "params": { "type": "object", "additionalProperties": true }
+            }
+          },
+          "preconditions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "effects": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

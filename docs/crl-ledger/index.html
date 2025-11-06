@@ -1,32 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><title>CRL & Transparency Log — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-    pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
-  </style>
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon Trace Ledger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Revocation and provenance for Praeon audit traces." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>CRL & Transparency Log</h1>
-    <p class="muted">Revocation and proof of inclusion for receipts. Target propagation &lt; 60 s across fleet.</p>
-    <div class="panel">
-      <h2>Model</h2>
-      <ul>
-        <li>Pub/sub fanout with regional caches; signatures verified at edge.</li>
-        <li>Monotonic <code>crl_version</code>; clients refuse stale versions by policy.</li>
-        <li>Receipts anchored in an append-only log; periodic hash anchors.</li>
-      </ul>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-    <div class="panel">
-      <h2>Failure handling</h2>
-      <ul>
-        <li>On CRL fetch failure: fail-closed (configurable maintenance mode).</li>
-        <li>On log unavailability: admit only previously-valid artifacts within TTL window.</li>
-      </ul>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Trace Ledger &amp; Revocation</h1>
+        <p>Praeon maintains canonical trace hashes and adapter digests so revocation and replay remain deterministic.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Ledger anchors</h2>
+          <ul>
+            <li>Trace hash stored in append-only ledger.</li>
+            <li>Periodic anchors to customer-controlled transparency logs.</li>
+            <li>Adapter digest + policy digest recorded per plan.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Revocation workflow</h2>
+          <ol>
+            <li>Flag trace ID for revocation (policy breach or credential compromise).</li>
+            <li>Publish revocation entry with reason codes.</li>
+            <li>Notify adapters and orchestrators via webhook + SIEM event.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <h2>Target SLOs</h2>
+          <ul>
+            <li>Revocation propagation &lt; 60 seconds fleet-wide.</li>
+            <li>Ledger anchor issuance every 15 minutes.</li>
+            <li>Replay validation available within 5 minutes of revocation.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-  </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -1,0 +1,37 @@
+{
+  "actor": { "type": "agent", "id": "salesbot" },
+  "capabilities": [
+    {
+      "tool": "email",
+      "name": "send",
+      "scopes": ["domain:example.com"]
+    }
+  ],
+  "constraints": {
+    "budget": { "currency": "USD", "max": 200 },
+    "riskLevel": "low"
+  },
+  "steps": [
+    {
+      "id": "s1",
+      "action": {
+        "tool": "email",
+        "capability": "send",
+        "params": {
+          "to": "user@example.com",
+          "subject": "Your credit",
+          "bodyTemplate": "tplA"
+        }
+      },
+      "preconditions": [
+        "recipient.domain in allowlist",
+        "no_pii(bodyTemplate)"
+      ],
+      "effects": ["email.sent"]
+    }
+  ],
+  "approvals": [
+    { "stepId": "s1", "type": "human", "role": "manager" }
+  ],
+  "policyRef": ["policy://corp/email-low-risk"]
+}

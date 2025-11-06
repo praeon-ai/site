@@ -2,93 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Praeon — Legal</title>
+  <title>Praeon Legal — Terms &amp; Policies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Praeon Legal — terms of use, acceptable use, trademarks." />
+  <meta name="description" content="Praeon legal terms, acceptable use, intellectual property, and contact information." />
   <link rel="canonical" href="https://praeon.ai/legal" />
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--shadow:0 10px 30px rgba(0,0,0,.3);--radius:16px;--maxw:960px}
-    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
-    header{position:sticky;top:0;backdrop-filter:saturate(160%) blur(6px);background:rgba(11,12,16,.6);border-bottom:1px solid var(--border)}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .logo{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.06em}
-    .logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b389ff);box-shadow:var(--shadow)}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f1422;border:1px solid var(--border);color:var(--muted);font-size:12px;margin-left:8px}
-    main{padding:32px 0}
-    h1{font-size:clamp(26px,4vw,42px);line-height:1.1;margin:8px 0 6px}
-    h2{font-size:clamp(18px,2.4vw,24px);margin:22px 0 8px}
-    p{margin:10px 0;color:var(--text)}
-    ul{margin:8px 0 8px 22px}
-    .muted{color:var(--muted)}
-    .panel{background:linear-gradient(180deg,#0d0f15,#0a0b10);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:14px 0}
-    footer{padding:28px 0 48px;border-top:1px solid var(--border);color:var(--muted)}
-  </style>
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="logo">
-      <span class="logo-mark" aria-hidden="true"></span><span>PRAEON</span>
-      <span class="pill">Legal</span>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-    <nav><a href="/">Home</a></nav>
-  </div>
-</header>
+  </header>
 
-<main>
-  <div class="wrap">
-    <h1>Legal</h1>
-    <p class="muted">Last updated: 31 Oct 2025</p>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Legal</h1>
+        <p>Terms for using Praeon’s compliance-grade action audit infrastructure.</p>
+      </div>
+    </section>
 
-    <div class="panel">
-      <h2>Terms of Use</h2>
-      <p>By accessing this website, you agree to use it only for lawful purposes and in accordance with these terms. The site is provided on an “as is” and “as available” basis.</p>
-      <ul>
-        <li><strong>No warranties:</strong> we disclaim all warranties to the fullest extent permitted by law.</li>
-        <li><strong>Limitation of liability:</strong> to the extent permitted by law, Praeon shall not be liable for indirect, incidental, special, consequential, or punitive damages.</li>
-        <li><strong>Updates:</strong> we may update these terms; material changes will be noted on this page.</li>
-      </ul>
-      <p class="muted">This page is informational and not legal advice. For commercial agreements (e.g., design partner terms), we will provide a separate contract.</p>
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Terms of Use</h2>
+          <p>Use Praeon services for lawful purposes and in accordance with these terms. We provide services “as is” with limitations of liability to the fullest extent permitted by law.</p>
+        </article>
+        <article class="card">
+          <h2>Acceptable Use</h2>
+          <ul>
+            <li>No attempts to breach or degrade services.</li>
+            <li>No unlawful activity or infringement of third-party rights.</li>
+            <li>No automated scraping beyond published allowances.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Intellectual Property</h2>
+          <p>“Praeon”, “PlanLang”, and “Praeon Kernel” are proprietary marks. Third-party product names are referenced for identification only.</p>
+        </article>
+        <article class="card">
+          <h2>Contact</h2>
+          <p>Email <a href="mailto:legal@praeon.ai">legal@praeon.ai</a> with legal requests. Custom agreements govern enterprise deployments.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-
-    <div class="panel">
-      <h2>Acceptable Use</h2>
-      <ul>
-        <li>No attempts to breach, disrupt, or degrade the service.</li>
-        <li>No illegal activity or infringement of others’ rights.</li>
-        <li>No automated scraping beyond robots.txt allowances.</li>
-      </ul>
-    </div>
-
-    <div class="panel">
-      <h2>Intellectual Property</h2>
-      <ul>
-        <li>© Praeon for site content and branding unless otherwise noted.</li>
-        <li>“Praeon”, “Praeon Gate”, “Praeon Ledger”, and “Praeon Suite” are proprietary names/marks.</li>
-        <li><strong>MWAL-1</strong> refers to the Model Weights Attestation Layer profile. Where published as a specification, the spec text may be licensed separately (to be posted alongside the spec).</li>
-      </ul>
-    </div>
-
-    <div class="panel">
-      <h2>Trademarks & Attribution</h2>
-      <p>Third-party names (e.g., Intel TDX, Azure Confidential Computing, CycloneDX, SPDX, C2PA, vLLM, Ollama, Bento) are property of their respective owners and used for reference only.</p>
-    </div>
-
-    <div class="panel">
-      <h2>Contact</h2>
-      <p>Questions about these terms? <a href="mailto:legal@praeon.ai">legal@praeon.ai</a></p>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-    <div>© <span id="year"></span> Praeon</div>
-    <div class="muted"><a href="/security">Security</a> · <a href="/privacy">Privacy</a></div>
-  </div>
-</footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
