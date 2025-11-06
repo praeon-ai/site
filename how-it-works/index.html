@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>How Praeon Works — Typed Plans to Audit Traces</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="See how PlanLang, the Praeon Kernel, approvals, and semantic replay deliver audit-grade action infrastructure." />
+  <link rel="canonical" href="https://praeon.ai/how-it-works" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a aria-current="page" href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Plan, Approve, Execute, Trace.</h1>
+        <p>The Praeon Kernel aligns typed agent plans with policy controls and audit expectations.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-4">
+        <article class="card">
+          <h2>Plan</h2>
+          <p>Agent proposes a typed PlanLang document describing actors, capabilities, constraints, and budgets.</p>
+        </article>
+        <article class="card">
+          <h2>Pre-Flight</h2>
+          <p>Static analysis, policy evaluation, and dry-run semantics confirm controls before execution.</p>
+        </article>
+        <article class="card">
+          <h2>Approve &amp; Execute</h2>
+          <p>Human or automated approvals authorize least-privilege execution through adapters.</p>
+        </article>
+        <article class="card">
+          <h2>Trace &amp; Replay</h2>
+          <p>Operational traces stay encrypted; audit traces are redacted and replayable for drills or incidents.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>JavaScript SDK</h2>
+          <pre><code>import { plan, execute } from "@praeon/sdk";
+
+const p = plan({
+  actor: { type: "agent", id: "salesbot" },
+  capabilities: [{
+    tool: "email",
+    name: "send",
+    scopes: ["domain:example.com"]
+  }],
+  constraints: {
+    budget: { currency: "USD", max: 200 },
+    riskLevel: "low"
+  },
+  steps: [{
+    id: "s1",
+    action: {
+      tool: "email",
+      capability: "send",
+      params: {
+        to: "user@example.com",
+        subject: "Your credit",
+        bodyTemplate: "tplA"
+      }
+    },
+    preconditions: [
+      "recipient.domain in allowlist",
+      "no_pii(bodyTemplate)"
+    ]
+  }],
+  approvals: [{ stepId: "s1", type: "human", role: "manager" }],
+  policyRef: ["policy://corp/email-low-risk"]
+});
+
+const result = await execute(p); // pre-flight -> approval -> execute -> trace</code></pre>
+        </article>
+        <article class="card">
+          <h2>Python SDK</h2>
+          <pre><code>from praeon import plan, execute
+
+p = plan({
+    "actor": {"type": "agent", "id": "salesbot"},
+    "capabilities": [{
+        "tool": "email",
+        "name": "send",
+        "scopes": ["domain:example.com"],
+    }],
+    "constraints": {
+        "budget": {"currency": "USD", "max": 200},
+        "riskLevel": "low",
+    },
+    "steps": [{
+        "id": "s1",
+        "action": {
+            "tool": "email",
+            "capability": "send",
+            "params": {
+                "to": "user@example.com",
+                "subject": "Your credit",
+                "bodyTemplate": "tplA",
+            },
+        },
+        "preconditions": [
+            "recipient.domain in allowlist",
+            "no_pii(bodyTemplate)",
+        ],
+    }],
+    "approvals": [{"stepId": "s1", "type": "human", "role": "manager"}],
+    "policyRef": ["policy://corp/email-low-risk"],
+})
+
+result = execute(p)  # pre-flight -> approval -> execute -> trace</code></pre>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

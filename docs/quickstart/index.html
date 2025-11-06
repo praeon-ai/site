@@ -1,32 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><title>Quickstart — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-    pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
-  </style>
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon Quickstart — Compliance Pilot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Kick off a Praeon compliance pilot with PlanLang typed plans and the Praeon Kernel." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Quickstart</h1>
-    <p class="muted">Production install uses signed packages/Helm. The sandbox script is for evaluation only.</p>
-
-    <div class="panel">
-      <h2>Install (packages)</h2>
-      <pre># macOS (pkg), Linux (deb/rpm), Helm charts — coming with first public build.
-# Until then, request access: designpartners@praeon.ai</pre>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
+  </header>
 
-    <div class="panel">
-      <h2>Sandbox (evaluation)</h2>
-      <pre>praeon gate verify \
-  --manifest ./model.mwal.json \
-  --policy ./policy.hcl \
-  --runtime vllm \
-  --load ./weights.bin</pre>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Quickstart</h1>
+        <p>Move from typed plans to audit-ready traces in a two-week compliance pilot.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>1. Emit PlanLang</h2>
+          <pre><code>import { plan } from "@praeon/sdk";
+
+const typedPlan = plan({
+  actor: { type: "agent", id: "claimsbot" },
+  capabilities: [{ tool: "jira", name: "update", scopes: ["project:claims"] }],
+  constraints: { budget: { currency: "USD", max: 50 }, riskLevel: "low" },
+  steps: [{
+    id: "s1",
+    action: { tool: "jira", capability: "update", params: { issueId: "CLAIM-42" } },
+    preconditions: ["issue.status in ['Open','Pending']"]
+  }],
+  approvals: [{ stepId: "s1", type: "human", role: "claims.manager" }],
+  policyRef: ["policy://claims/low-risk"]
+});</code></pre>
+        </article>
+        <article class="card">
+          <h2>2. Pre-Flight</h2>
+          <pre><code>import { preflight } from "@praeon/sdk";
+
+await preflight({
+  plan: typedPlan,
+  environment: "pilot",
+  adapters: ["jira"],
+});</code></pre>
+        </article>
+        <article class="card">
+          <h2>3. Approve &amp; Execute</h2>
+          <pre><code>import { approve, execute } from "@praeon/sdk";
+
+await approve({ planId: typedPlan.id, approver: "manager.alice" });
+const trace = await execute({ planId: typedPlan.id });</code></pre>
+        </article>
+        <article class="card">
+          <h2>4. Export Evidence</h2>
+          <pre><code>import { exportTrace } from "@praeon/sdk";
+
+await exportTrace({
+  planId: typedPlan.id,
+  format: "audit",
+  destination: "s3://praeon-audit/pilot"
+});</code></pre>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-  </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

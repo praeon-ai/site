@@ -1,109 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>Ollama Integration — Praeon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
-    .panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
-    .muted{color:var(--muted)}pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
-    code{background:#0d1117;border:1px solid var(--border);border-radius:6px;padding:0 6px}
-  </style>
+  <meta charset="utf-8" />
+  <title>Praeon Adapter — Ollama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Configure the Praeon Kernel with the vendor-attested Ollama adapter." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Ollama Integration</h1>
-    <p class="muted">Drop-in sidecar today. Loader-native plug-in behind a feature flag.</p>
-
-    <div class="panel">
-      <h2>Mode A — Sidecar (verify before Ollama starts)</h2>
-      <p>Use <code>praeon gate</code> to verify the signed manifest and materialize approved weights into a sealed store that Ollama reads from.</p>
-      <pre># 1) Verify manifest + policy; admit or deny; materialize weights into ./verified-store
-praeon gate verify \
-  --manifest ./model.mwal.json \
-  --policy   ./policy.hcl \
-  --runtime  ollama \
-  --load     ./weights/llama3.1-q4_k_m.gguf \
-  --out-store ./verified-store
-
-# 2) Point OLLAMA_MODELS at the sealed store and start Ollama
-export OLLAMA_MODELS="$(pwd)/verified-store"
-ollama serve</pre>
-      <p class="muted">If the artifact is not attested or out of policy, Praeon denies and Ollama never sees the weights.</p>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
+  </header>
 
-    <div class="panel">
-      <h2>Mode B — Docker Compose (init step)</h2>
-      <pre>services:
-  praegate:
-    image: ghcr.io/praeon/gate:preview
-    volumes:
-      - ./manifests:/manifests:ro
-      - verified-store:/verified
-      - ./policies:/policies:ro
-    command: >
-      praeon gate verify
-        --manifest /manifests/model.mwal.json
-        --policy   /policies/prod.hcl
-        --runtime  ollama
-        --load     /weights/llama3.1-q4_k_m.gguf
-        --out-store /verified
-  ollama:
-    image: ollama/ollama:latest
-    depends_on: [praegate]
-    environment:
-      - OLLAMA_MODELS=/models
-    volumes:
-      - verified-store:/models:ro
-volumes:
-  verified-store: {}</pre>
-      <p class="muted">Praeon runs once to verify + stage weights; Ollama mounts the read-only verified volume.</p>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Ollama Adapter</h1>
+        <p>Vendor-attested adapter for running typed PlanLang actions through Ollama with least-privilege execution.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Enable the Adapter</h2>
+          <pre><code>praeon adapters enable ollama \
+  --digest ghcr.io/praeon/adapter-ollama@sha256:... \
+  --kms-key projects/pilot/keys/ollama</code></pre>
+        </article>
+        <article class="card">
+          <h2>PlanLang Capability</h2>
+          <pre><code>{
+  "tool": "ollama",
+  "name": "generate",
+  "scopes": ["model:pilot-llm", "output:moderated"],
+  "effects": ["content.generated"]
+}</code></pre>
+        </article>
+        <article class="card">
+          <h2>Policy Example</h2>
+          <pre><code>allow {
+  input.capability.tool == "ollama"
+  input.constraints.riskLevel == "low"
+  input.steps[0].effects == ["content.generated"]
+}</code></pre>
+        </article>
+        <article class="card">
+          <h2>Replay Guidance</h2>
+          <p>Semantic replay runs Ollama in deterministic mode with seeded prompts and adapter logs to validate equivalence.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
     </div>
-
-    <div class="panel">
-      <h2>Mode C — systemd unit wrapper</h2>
-      <pre>[Unit]
-Description=Praeon gate + Ollama
-After=network-online.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/praeon gate verify --manifest /etc/praeon/model.mwal.json --policy /etc/praeon/prod.hcl --runtime ollama --load /opt/weights/llama3.1.gguf --out-store /var/lib/praeon/verified
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target</pre>
-      <pre>[Unit]
-Description=Ollama (verified store)
-Requires=praeon.service
-After=praeon.service
-
-[Service]
-Environment=OLLAMA_MODELS=/var/lib/praeon/verified
-ExecStart=/usr/bin/ollama serve
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target</pre>
-    </div>
-
-    <div class="panel">
-      <h2>Receipts & Export</h2>
-      <pre># Export last admit to Splunk (example)
-praeon receipt export --to splunk --file ./receipts/$(date -u +%FT%H-%MZ).json</pre>
-    </div>
-
-    <div class="panel">
-      <h2>Notes</h2>
-      <ul>
-        <li>Default deny: without an admitted artifact in the verified store, Ollama loads nothing.</li>
-        <li>TEE quotes optional: enable per policy if your host supports Intel TDX/Azure CC.</li>
-        <li>CRL + transparency log: Gate enforces current <code>crl_version</code> and fails closed on stale revocation state (configurable maintenance window).</li>
-      </ul>
-    </div>
-  </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

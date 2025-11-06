@@ -1,26 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><title>vLLM Integration — Praeon</title><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style>
-    :root{--bg:#0b0c10;--panel:#101218;--text:#e8ebf0;--muted:#a4adbd;--brand:#7aa2ff;--border:#1a1f2b;--radius:16px;--maxw:960px}
-    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--text)}
-    a{color:var(--brand)}.wrap{max-width:var(--maxw);margin:0 auto;padding:24px}.panel{background:#0d0f15;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-    pre{background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}
-  </style>
+<head>
+  <meta charset="utf-8" />
+  <title>Praeon Adapter — vLLM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Configure the Praeon Kernel with the vendor-attested vLLM adapter." />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>vLLM Integration</h1>
-    <p class="muted">Drop-in sidecar today; loader-native plug-in behind a feature flag.</p>
-    <div class="panel">
-      <h2>Sidecar</h2>
-      <pre>praeon gate verify \
-  --manifest ./model.mwal.json \
-  --policy ./policy.hcl \
-  --runtime vllm \
-  --load ./weights.bin</pre>
-      <p class="muted">On admit, Gate atomically hands a verified FD to vLLM loader.</p>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>vLLM Adapter</h1>
+        <p>Typed PlanLang actions with deterministic replay for vLLM deployments.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Adapter Install</h2>
+          <pre><code>praeon adapters enable vllm \
+  --digest ghcr.io/praeon/adapter-vllm@sha256:... \
+  --kms-key projects/pilot/keys/vllm</code></pre>
+        </article>
+        <article class="card">
+          <h2>Capability Definition</h2>
+          <pre><code>{
+  "tool": "vllm",
+  "name": "completion",
+  "scopes": ["model:pilot-7b", "output:moderated"],
+  "effects": ["content.generated"]
+}</code></pre>
+        </article>
+        <article class="card">
+          <h2>Guardrail Policy</h2>
+          <pre><code>allow {
+  input.capability.tool == "vllm"
+  input.constraints.riskLevel == "medium"
+  input.constraints.budget.max <= 100
+}</code></pre>
+        </article>
+        <article class="card">
+          <h2>Replay Checklist</h2>
+          <ul>
+            <li>Record adapter digest and model commit.</li>
+            <li>Store prompt/response pair in operational trace.</li>
+            <li>Replay with sandbox credentials for semantic equivalence.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

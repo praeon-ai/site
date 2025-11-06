@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Contact Praeon — Start a Compliance Pilot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Tell us about your use case and we’ll propose a 2-week audit drill with success criteria." />
+  <link rel="canonical" href="https://praeon.ai/contact" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Praeon</span>
+        <span class="brand-tagline">Audit-Grade Action Infrastructure for AI Agents</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/how-it-works/">How it Works</a>
+        <a href="/docs/">Docs</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+        <a aria-current="page" href="/contact/">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/whitepaper/">Read the White Paper</a>
+        <a class="btn btn-primary" href="/contact/">Book a Pilot</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Book a compliance pilot.</h1>
+        <p>We’ll propose a 2-week audit drill with success criteria.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="card">
+          <form id="contact-form" aria-describedby="contact-success">
+            <label> Name
+              <input name="name" type="text" required autocomplete="name" />
+            </label>
+            <label> Work Email
+              <input name="email" type="email" required autocomplete="email" />
+            </label>
+            <label> Organization
+              <input name="org" type="text" required autocomplete="organization" />
+            </label>
+            <label> Use Case
+              <input name="useCase" type="text" required />
+            </label>
+            <label> Region
+              <input name="region" type="text" />
+            </label>
+            <fieldset class="form-control">
+              <legend class="field-label">Data Residency</legend>
+              <span class="muted">Check if data must stay in a specific region.</span>
+              <div class="checkbox-row">
+                <input name="dataResidency" type="checkbox" id="dataResidency" />
+                <label class="checkbox-label" for="dataResidency">Data must remain in-region</label>
+              </div>
+            </fieldset>
+            <label> Message
+              <textarea name="message" required></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Submit</button>
+              <span id="contact-success" class="muted" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid" aria-label="Praeon footer">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/careers/">Careers</a></li>
+            <li><a href="/press/">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/legal/">Terms</a></li>
+            <li><a href="/dpa/">DPA</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/whitepaper/">White Paper</a></li>
+            <li><a href="/docs/audit-drill-checklist/">Audit Drill Checklist</a></li>
+            <li><a href="/docs/planlang-v0-1/">PlanLang v0.1 Schema</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>© <span id="year"></span> Praeon. All rights reserved.</span>
+        <span>Audit-Grade Action Infrastructure for AI Agents.</span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-success');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      payload.dataResidency = formData.has('dataResidency');
+      status.textContent = 'Sending…';
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+          throw new Error('Failed request');
+        }
+        const data = await response.json();
+        status.textContent = data.message;
+        form.reset();
+      } catch (error) {
+        status.textContent = 'Something went wrong. Email hello@praeon.ai and we will follow up.';
+      }
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Page not found — Praeon</title>
+  <title>Praeon Audit Drill Checklist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Checklist for running a Praeon audit drill across 50 typed plans." />
   <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
@@ -33,9 +34,54 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <h1>Page not found</h1>
-        <p>The page you’re looking for moved with the Praeon rebrand. Try the main navigation or head back home.</p>
-        <a class="btn btn-primary" href="/">Return home</a>
+        <h1>Audit Drill Checklist</h1>
+        <p>Plan for a 50-plan compliance drill with typed plans, kernel enforcement, and replayable traces.</p>
+        <a class="btn" href="/docs/audit-drill-checklist.md">Download Markdown</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid grid-2">
+        <article class="card">
+          <h2>Scope</h2>
+          <ul>
+            <li>Cover one production-grade workflow end-to-end.</li>
+            <li>Execute 50 typed plans (PlanLang) through the Praeon Kernel.</li>
+            <li>Capture approvals and semantic replay outcomes for each plan.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Evidence Pack</h2>
+          <ul>
+            <li>10 redacted audit traces (JSON + PDF summaries).</li>
+            <li>1 operational trace under NDA.</li>
+            <li>Kernel policy snapshots and adapter digests.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Controls Mapping</h2>
+          <ul>
+            <li>Policies: include CEL/Rego files referenced by <code>policy://</code> URIs.</li>
+            <li>Approvals: roles, delegation windows, escalations.</li>
+            <li>Least-privilege credentials and KMS/HSM logs.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Replay Exercise</h2>
+          <ul>
+            <li>Sandbox replay with semantic success criteria.</li>
+            <li>Elevated approval replay for one live plan.</li>
+            <li>Document variance notes and remediation tasks.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Findings &amp; Sign-off</h2>
+          <ul>
+            <li>Summaries of controls and variances.</li>
+            <li>Remediation owners, due dates, evidence requests.</li>
+            <li>Executive sign-off from risk, compliance, product.</li>
+          </ul>
+        </article>
       </div>
     </section>
   </main>

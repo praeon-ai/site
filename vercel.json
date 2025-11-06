@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/mwal", "destination": "/product", "permanent": true },
+    { "source": "/mwal/:path*", "destination": "/product", "permanent": true },
+    { "source": "/attestation", "destination": "/product", "permanent": true }
+  ]
+}
